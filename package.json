@@ -1,0 +1,30 @@
+{
+  "name": "gravitywrite-frontend-server",
+  "version": "1.0.0",
+  "description": "A server to deploy static files of frontend with some server side rendering for gravitywrite react frontend",
+  "main": "main.ts",
+  "scripts": {
+    "start": "cross-env NODE_PATH=./build node ./build/main.js",
+    "dev": "nodemon",
+    "build": "tsc --diagnostics"
+  },
+  "author": "Jaheen Afsar Syed",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "openai": "^4.37.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  }
+}

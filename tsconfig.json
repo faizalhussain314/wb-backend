@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "module": "NodeNext",
+    "baseUrl": "./src",
+    "target": "ES2021",
+    "moduleResolution": "nodenext",
+    "outDir": "./build/"
+  }
+}

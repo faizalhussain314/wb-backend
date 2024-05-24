@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Child iFrame</title>
+</head>
+<body>
+  <h3>I'm a child iFrame</h3>
+  <p>Message from parent: <span id="messageFromParent"></span></p>
+
+  <script>
+    window.addEventListener("message", (event) => {
+      const messageFromParent = document.getElementById("messageFromParent");
+      messageFromParent.textContent = event.data;
+      
+      
+    });
+  </script>
+</body>
+</html>

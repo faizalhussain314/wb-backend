@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template 1</title>
+
+    <style>
+      * {
+        padding: 0px;
+      }
+      body {
+        padding: 10px;
+        user-select: none;
+      }
+      .div {
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        display: flex;
+        width: 100%;
+      }
+      @media (max-width: 991px) {
+        .div {
+          max-width: 100%;
+          padding: 0 20px;
+        }
+      }
+      .div-2 {
+        display: flex;
+        margin-bottom: 20px;
+        width: 1200px;
+        max-width: 100%;
+        flex-direction: column;
+      }
+      .div-3 {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 20px;
+        color: #151616;
+        font-weight: 700;
+        justify-content: space-between;
+      }
+      @media (max-width: 991px) {
+        .div-3 {
+          max-width: 100%;
+          flex-wrap: wrap;
+        }
+      }
+      .div-4 {
+        align-self: stretch;
+        margin: auto 0;
+        font: 18px/120% Poppins, sans-serif;
+      }
+      .div-5 {
+        align-self: stretch;
+        display: flex;
+        gap: 20px;
+        font-size: 15px;
+        font-weight: 400;
+        white-space: nowrap;
+        line-height: 667%;
+        justify-content: space-between;
+        margin: auto 0;
+      }
+      @media (max-width: 991px) {
+        .div-5 {
+          white-space: initial;
+        }
+      }
+      .div-6 {
+        color: #65696f;
+        font-family: Poppins, sans-serif;
+      }
+      .div-7 {
+        font-family: Poppins, sans-serif;
+      }
+      .div-8 {
+        font-family: Poppins, sans-serif;
+      }
+      .div-9 {
+        font-family: Poppins, sans-serif;
+      }
+      .div-10 {
+        justify-content: center;
+        border-radius: 5px;
+        background-color: #737880;
+
+        color: #fff;
+        text-transform: uppercase;
+        padding: 19px 16px;
+        font: 14px/100% Poppins, sans-serif;
+      }
+      @media (max-width: 991px) {
+        .div-10 {
+          padding: 15px 20px;
+        }
+      }
+      .div-11 {
+        margin-top: 106px;
+      }
+      @media (max-width: 991px) {
+        .div-11 {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+      .div-12 {
+        gap: 20px;
+        display: flex;
+      }
+      @media (max-width: 991px) {
+        .div-12 {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0px;
+        }
+      }
+      .column {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 50%;
+        margin-left: 0px;
+      }
+      @media (max-width: 991px) {
+        .column {
+          width: 100%;
+        }
+      }
+      .div-13 {
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+        font-weight: 700;
+        margin: auto 0;
+        padding: 10px;
+      }
+      @media (max-width: 991px) {
+        .div-13 {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+      .div-14 {
+        color: #65696f;
+        font: 600 16px/150% Poppins, sans-serif;
+      }
+      @media (max-width: 991px) {
+        .div-14 {
+          max-width: 100%;
+        }
+      }
+      .div-15 {
+        color: #151616;
+        margin-top: 30px;
+        font: 48px/64px Poppins, sans-serif;
+      }
+      @media (max-width: 991px) {
+        .div-15 {
+          max-width: 100%;
+          font-size: 40px;
+          line-height: 60px;
+        }
+      }
+      .div-16 {
+        color: #393c40;
+        margin: 41px 21px 0 0;
+        font: 400 15px/26px Poppins, sans-serif;
+      }
+      @media (max-width: 991px) {
+        .div-16 {
+          max-width: 100%;
+          margin: 40px 10px 0 0;
+        }
+      }
+      .div-17 {
+        justify-content: center;
+        border-radius: 5px;
+        background-color: #737880;
+        align-self: start;
+        margin-top: 36px;
+        color: #fff;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 22px 33px;
+        font: 14px/100% Poppins, sans-serif;
+      }
+      @media (max-width: 991px) {
+        .div-17 {
+          /*padding: 0 20px;*/
+        }
+      }
+      .column-2 {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        /*width: 100%;*/
+        margin-left: 20px;
+      }
+      @media (max-width: 991px) {
+        .column-2 {
+          /* width: 100%;*/
+        }
+      }
+      .img {
+        aspect-ratio: 0.94;
+        object-fit: auto;
+        object-position: center;
+        width: 81%;
+        flex-grow: 1;
+      }
+      @media (max-width: 991px) {
+        .img {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+      .why-choose-us {
+        background-color: #f6f6f6;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: ;
+      }
+
+      @media (max-width: 991px) {
+        .why-choose-us {
+          max-width: 100%;
+          padding: 0 20px;
+        }
+        body {
+          /* padding:10px; */
+        }
+      }
+
+      .value-proposition {
+        display: flex;
+        margin-top: 25px;
+        width: 1200px;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 35px;
+      }
+
+      .section-subtitle {
+        color: #65696f;
+        text-align: center;
+        font: 600 16px/150% Poppins, sans-serif;
+      }
+
+      .section-title {
+        color: #151616;
+        text-align: center;
+        margin-top: 25px;
+        font: 700 40px/133% Poppins, sans-serif;
+      }
+
+      @media (max-width: 991px) {
+        .section-title {
+          max-width: 100%;
+        }
+      }
+
+      .features-container {
+        align-self: stretch;
+        margin-top: 62px;
+      }
+      @media (min-width: 1024px) {
+        .services-container {
+          margin: 30px;
+        }
+      }
+      @media (max-width: 991px) {
+        .features-container {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+
+      .features-row {
+        gap: 20px;
+        display: flex;
+        margin: 30px;
+      }
+
+      @media (max-width: 991px) {
+        .features-row {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0px;
+          padding-bottom: 34px;
+        }
+      }
+
+      .feature-column {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 0px;
+      }
+
+      @media (max-width: 991px) {
+        .feature-column {
+          width: 100%;
+        }
+      }
+
+      .feature-card {
+        align-items: center;
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        text-align: center;
+
+        padding: 57px 64px;
+      }
+
+      @media (max-width: 991px) {
+        .feature-card {
+          margin-top: 25px;
+          /* padding: 0 20px; */
+        }
+      }
+
+      .feature-title {
+        color: #151616;
+        font: 600 22px/140% Poppins, sans-serif;
+      }
+
+      .feature-divider {
+        border-color: rgba(115, 120, 128, 1);
+        border-style: solid;
+        border-top-width: 2px;
+        margin-top: 19px;
+        width: 30px;
+        height: 2px;
+      }
+
+      .feature-description {
+        color: #393c40;
+        align-self: stretch;
+        margin-top: 24px;
+        font: 400 15px/26px Poppins, sans-serif;
+      }
+
+      <style > .quick-services-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 80px 60px;
+        background-color: #f6f6f6;
+        color: #151616;
+        font-weight: 700;
+        text-align: center;
+        line-height: 150%;
+      }
+
+      @media (max-width: 991px) {
+        .quick-services-section {
+          padding: 60px 20px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .quick-services-section {
+          padding: 40px 20px;
+        }
+      }
+
+      .quick-services-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        padding-top: 40px;
+        padding-bottom: 50px;
+      }
+
+      .quick-services-subtitle {
+        color: #65696f;
+        font: 600 16px Poppins, sans-serif;
+      }
+
+      @media (max-width: 767px) {
+        .quick-services-subtitle {
+          font-size: 14px;
+        }
+      }
+
+      .quick-services-title {
+        margin-top: 29px;
+        font: 32px/140% Poppins, sans-serif;
+      }
+
+      @media (max-width: 991px) {
+        .quick-services-title {
+          font-size: 28px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .quick-services-title {
+          margin-top: 20px;
+          font-size: 24px;
+        }
+      }
+
+      .quick-services-description {
+        margin-top: 23px;
+        color: #393c40;
+        font: 400 15px/26px Poppins, sans-serif;
+      }
+
+      @media (max-width: 767px) {
+        .quick-services-description {
+          margin-top: 16px;
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+
+      .quick-services-contact {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 42px;
+        font-size: 24px;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 991px) {
+        .quick-services-contact {
+          margin-top: 32px;
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .quick-services-contact {
+          margin-top: 24px;
+          font-size: 18px;
+          white-space: normal;
+        }
+      }
+
+      .quick-services-icon {
+        width: 20px;
+        aspect-ratio: 1;
+        object-fit: contain;
+        object-position: center;
+      }
+
+      @media (max-width: 767px) {
+        .quick-services-icon {
+          width: 16px;
+        }
+      }
+
+      .quick-services-phone {
+        font-family: Poppins, sans-serif;
+      }
+      .services-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: #f6f6f6;
+        /* padding: 0 60px; */
+      }
+
+      @media (max-width: 991px) {
+        .services-section {
+          max-width: 100%;
+          /*  padding: 0 20px; */
+        }
+      }
+
+      .services-container {
+        display: flex;
+        justify-content: center;
+        width: 1200px;
+        max-width: 100%;
+        background-color: #232529;
+        border-radius: 20px;
+        padding: 50px;
+      }
+
+      @media (max-width: 991px) {
+        .services-container {
+          padding: 43px 20px;
+        }
+      }
+
+      .services-content {
+        display: flex;
+        gap: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .services-content {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+      }
+
+      .services-info {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        color: #fff;
+        font-weight: 700;
+        line-height: normal;
+        margin-left: 0;
+      }
+
+      @media (max-width: 991px) {
+        .services-info {
+          width: 100%;
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+
+      .services-subtitle {
+        font: 600 16px/150% Poppins, sans-serif;
+      }
+
+      .services-title {
+        margin-top: 31px;
+        font: 40px/53px Poppins, sans-serif;
+      }
+
+      .services-description {
+        margin-top: 40px;
+        font: 400 15px/26px Poppins, sans-serif;
+      }
+
+      .services-cta {
+        align-self: start;
+        margin-top: 39px;
+        padding: 22px 32px;
+        background-color: #fff;
+        color: #151616;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 5px;
+        font: 14px/100% Poppins, sans-serif;
+        text-decoration: none;
+      }
+
+      .services-list {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        width: 50%;
+        /*margin-left: 20px; */
+        line-height: normal;
+      }
+
+      @media (max-width: 991px) {
+        .services-list {
+          width: 100%;
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+
+      .service-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+      }
+
+      .service-item + .service-item {
+        margin-top: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .service-item {
+          max-width: 100%;
+          padding: 0 20px;
+        }
+      }
+
+      .service-name {
+        color: #151616;
+        font: 600 22px/140% Poppins, sans-serif;
+      }
+
+      .service-details {
+        /* margin-top: 27px; */
+        color: #393c40;
+        font: 400 15px/26px Poppins, sans-serif;
+      }
+      .testimonials-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f6f6f6;
+        width: 100%;
+        /* padding: 78px 60px; */
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-section {
+          max-width: 100%;
+          padding: 0 20px;
+        }
+      }
+
+      .testimonials-container {
+        display: flex;
+        flex-direction: column;
+        width: 1200px;
+        max-width: 100%;
+        margin-top: 55px;
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-container {
+          margin-top: 40px;
+        }
+      }
+
+      .testimonials-header {
+        display: flex;
+        width: 100%;
+        gap: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-header {
+          max-width: 100%;
+          flex-wrap: wrap;
+        }
+      }
+
+      .testimonials-title {
+        color: #151616;
+        flex-grow: 1;
+        flex-basis: auto;
+        margin: auto 0;
+        font: 700 40px/133% Poppins, sans-serif;
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-title {
+          max-width: 100%;
+        }
+      }
+
+      .testimonials-images {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-images {
+          max-width: 100%;
+          flex-wrap: wrap;
+        }
+      }
+
+      .testimonials-image-1 {
+        width: 244px;
+        aspect-ratio: 4.35;
+        object-fit: auto;
+        object-position: center;
+      }
+
+      .testimonials-image-2 {
+        width: 221px;
+        aspect-ratio: 4;
+        object-fit: auto;
+        object-position: center;
+      }
+
+      .testimonials-content {
+        margin-top: 59px;
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-content {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+
+      .testimonials-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .testimonials-row {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+      }
+
+      .testimonial-column {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 0;
+        background-color: #fff;
+      }
+
+      @media (max-width: 991px) {
+        .testimonial-column {
+          width: 100%;
+        }
+      }
+
+      .testimonial-card {
+        display: flex;
+        flex-direction: column;
+        /* width: 100%;*/
+        flex-grow: 1;
+        border-radius: 10px;
+        /* background-color: #fff; */
+        color: #151616;
+        margin: 0 auto;
+        padding: 10px;
+      }
+
+      @media (max-width: 991px) {
+        .testimonial-card {
+          margin-top: 24px;
+          padding: 0 20px;
+        }
+      }
+
+      .testimonial-icon {
+        width: 30px;
+        aspect-ratio: 1;
+        object-fit: auto;
+        object-position: center;
+      }
+
+      .testimonial-text {
+        margin-top: 32px;
+        font: 400 16px/27px Poppins, sans-serif;
+      }
+
+      .testimonial-author {
+        display: flex;
+        margin-top: 24px;
+        gap: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 100%;
+        margin-bottom: 30px;
+      }
+
+      .testimonial-author-image {
+        width: 50px;
+        aspect-ratio: 1;
+        object-fit: auto;
+        object-position: center;
+      }
+
+      .testimonial-author-name {
+        font-family: Poppins, sans-serif;
+        flex-grow: 1;
+        flex-basis: auto;
+        margin: auto 0;
+      }
+      .about-us-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: #f6f6f6;
+        /* padding: 63px 60px; */
+      }
+
+      .about-us-container {
+        display: flex;
+        justify-content: center;
+        width: 1200px;
+        max-width: 100%;
+        border: 1px solid rgba(241, 240, 240, 1);
+        border-radius: 20px;
+        padding: 51px;
+      }
+
+      .about-us-content {
+        display: flex;
+        gap: 20px;
+      }
+
+      .about-us-text {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-left: 0;
+        line-height: normal;
+      }
+
+      .about-us-details {
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+        margin: auto 0;
+        font-weight: 700;
+      }
+
+      .about-us-subtitle {
+        color: #65696f;
+        font: 600 16px/150% Poppins, sans-serif;
+      }
+
+      .about-us-title {
+        margin-top: 29px;
+        color: #151616;
+        font: 40px/53px Poppins, sans-serif;
+      }
+
+      .about-us-description {
+        margin-top: 29px;
+        color: #393c40;
+        font: 400 15px/26px Poppins, sans-serif;
+      }
+
+      .read-more-button {
+        display: flex;
+        justify-content: center;
+        align-self: start;
+        margin-top: 36px;
+        padding: 22px 33px;
+        background-color: #737880;
+        color: #fff;
+        font: 14px/100% Poppins, sans-serif;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 5px;
+      }
+
+      .about-us-image {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-left: 20px;
+        line-height: normal;
+      }
+
+      .about-us-img {
+        width: 100%;
+        aspect-ratio: 0.99;
+        object-fit: auto;
+        object-position: center;
+        flex-grow: 1;
+      }
+
+      @media (max-width: 991px) {
+        .about-us-section {
+          max-width: 100%;
+          padding: 0 20px;
+        }
+
+        .about-us-container {
+          padding: 0 20px;
+        }
+
+        .about-us-content {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+
+        .about-us-text,
+        .about-us-image {
+          width: 100%;
+        }
+
+        .about-us-details {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+
+        .about-us-subtitle,
+        .about-us-title,
+        .about-us-description {
+          max-width: 100%;
+        }
+
+        .read-more-button {
+          padding: 0 20px;
+        }
+
+        .about-us-img {
+          max-width: 100%;
+          margin-top: 40px;
+        }
+      }
+      .connect-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        /*  padding: 50px 60px; */
+        background-color: #f6f6f6;
+        font-size: 32px;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        line-height: 140%;
+        padding-bottom: 60px;
+      }
+
+      .connect-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1200px;
+        max-width: 100%;
+        /* padding: 80px 60px; */
+        border-radius: 20px;
+        background-color: #232529;
+        margin-top: 31px;
+      }
+
+      .connect-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 661px;
+        max-width: 100%;
+        margin: 26px 0 9px;
+      }
+
+      .connect-title {
+        font: 600 16px/150% Poppins, sans-serif;
+      }
+
+      .connect-description {
+        align-self: stretch;
+        margin-top: 30px;
+        font-family: Poppins, sans-serif;
+      }
+
+      .connect-button {
+        display: flex;
+        justify-content: center;
+        padding: 22px 33px;
+        margin-top: 22px;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #151616;
+        text-transform: uppercase;
+        font: 14px/100% Poppins, sans-serif;
+      }
+
+      .connect-phone-label {
+        margin-top: 47px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font: 14px/100% Poppins, sans-serif;
+      }
+
+      .connect-phone {
+        margin-top: 19px;
+        font-family: Poppins, sans-serif;
+      }
+
+      @media (max-width: 991px) {
+        .connect-section {
+          max-width: 100%;
+          padding: 20px 20px;
+        }
+
+        .connect-container {
+          /* padding: 0 20px; */
+        }
+
+        .connect-description {
+          max-width: 100%;
+        }
+
+        .connect-button {
+          padding: 0 20px;
+        }
+
+        .connect-phone-label {
+          margin-top: 40px;
+        }
+      }
+      > .footer-wrapper {
+        justify-content: center;
+        align-self: center;
+
+        max-width: 100%;
+        padding: 10px;
+      }
+
+      @media (max-width: 991px) {
+        .footer-wrapper {
+          padding-right: 20px;
+        }
+      }
+
+      .footer-content-wrapper {
+        display: flex;
+        gap: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .footer-content-wrapper {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+      }
+
+      .about-us-column-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 0;
+      }
+
+      @media (max-width: 991px) {
+        .about-us-column-wrapper {
+          width: 100%;
+        }
+      }
+
+      .about-us-content-wrapper {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: auto 0;
+        padding: 0 21px;
+      }
+
+      @media (max-width: 991px) {
+        .about-us-content-wrapper {
+          margin-top: 40px;
+          padding-right: 20px;
+        }
+      }
+
+      .about-us-title-text {
+        color: #262a2b;
+        align-self: center;
+        font: 600 28px/120% Roboto, sans-serif;
+      }
+
+      .about-us-description-text {
+        color: #7a7a7a;
+        margin-top: 16px;
+        font: 400 16px/150% Roboto, sans-serif;
+      }
+
+      .contact-info-column-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .contact-info-column-wrapper {
+          width: 100%;
+        }
+      }
+
+      .contact-info-content-wrapper {
+        align-self: stretch;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        font-size: 14px;
+        color: #000;
+        font-weight: 400;
+        line-height: 150%;
+        padding: 10px;
+      }
+
+      @media (max-width: 991px) {
+        .contact-info-content-wrapper {
+          margin-top: 40px;
+        }
+      }
+
+      .contact-info-title-text {
+        color: #29434d;
+        font: 600 22px/100% Roboto, sans-serif;
+      }
+
+      .contact-info-item-wrapper {
+        display: flex;
+        /* margin-top: 20px;*/
+        gap: 9px;
+      }
+
+      .contact-info-icon-image {
+        aspect-ratio: 1;
+        object-fit: auto;
+        object-position: center;
+        width: 15px;
+        margin: auto 0;
+      }
+
+      .contact-info-text-content {
+        font-family: Roboto, sans-serif;
+      }
+
+      .follow-us-column-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .follow-us-column-wrapper {
+          width: 100%;
+        }
+      }
+
+      .follow-us-content-wrapper {
+        align-self: stretch;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        padding: 10px 10px 39px;
+      }
+
+      @media (max-width: 991px) {
+        .follow-us-content-wrapper {
+          margin-top: 40px;
+        }
+      }
+
+      .follow-us-title-text {
+        color: #29434d;
+        font: 600 22px/100% Roboto, sans-serif;
+      }
+
+      .social-icons-wrapper {
+        justify-content: start;
+        align-items: start;
+        display: flex;
+        /* margin-top: 20px;
+    padding: 0 60px; */
+      }
+
+      @media (max-width: 991px) {
+        .social-icons-wrapper {
+          padding: 0 20px;
+        }
+      }
+
+      .social-icons-list-wrapper {
+        display: flex;
+        gap: 5px;
+        list-style: none;
+      }
+
+      .social-icon-link-wrapper {
+        justify-content: center;
+        align-items: center;
+        border-radius: 3.4px;
+        display: flex;
+        width: 34px;
+        height: 34px;
+        padding: 9px;
+      }
+
+      .facebook-icon-wrapper {
+        background-color: #3b5998;
+      }
+
+      .twitter-icon-wrapper {
+        background-color: #1da1f2;
+      }
+
+      .youtube-icon-wrapper {
+        background-color: #cd201f;
+      }
+
+      .social-icon-image-element {
+        aspect-ratio: 1;
+        object-fit: auto;
+        object-position: center;
+        width: 17px;
+      }
+
+      .footer-wrapper {
+        justify-content: center;
+        align-self: center;
+
+        max-width: 100%;
+        padding: 10px;
+      }
+
+      @media (max-width: 991px) {
+        .footer-wrapper {
+          padding-right: 20px;
+        }
+      }
+
+      .footer-content-wrapper {
+        display: flex;
+        gap: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .footer-content-wrapper {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+      }
+
+      .about-us-column-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 0;
+      }
+
+      @media (max-width: 991px) {
+        .about-us-column-wrapper {
+          width: 100%;
+        }
+      }
+
+      .about-us-content-wrapper {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: auto 0;
+        padding: 0 21px;
+      }
+
+      @media (max-width: 991px) {
+        .about-us-content-wrapper {
+          margin-top: 40px;
+          padding-right: 20px;
+        }
+      }
+
+      .about-us-title-text {
+        color: #262a2b;
+        align-self: center;
+        font: 600 28px/120% Roboto, sans-serif;
+      }
+
+      .about-us-description-text {
+        color: #7a7a7a;
+        margin-top: 16px;
+        font: 400 16px/150% Roboto, sans-serif;
+      }
+
+      .contact-info-column-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .contact-info-column-wrapper {
+          width: 100%;
+        }
+      }
+
+      .contact-info-content-wrapper {
+        align-self: stretch;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        font-size: 14px;
+        color: #000;
+        font-weight: 400;
+        line-height: 150%;
+        padding: 10px;
+      }
+
+      @media (max-width: 991px) {
+        .contact-info-content-wrapper {
+          margin-top: 40px;
+        }
+      }
+
+      .contact-info-title-text {
+        color: #29434d;
+        font: 600 22px/100% Roboto, sans-serif;
+      }
+
+      .contact-info-item-wrapper {
+        display: flex;
+        /* margin-top: 20px;
+    gap: 9px;*/
+      }
+
+      .contact-info-icon-image {
+        aspect-ratio: 1;
+        object-fit: auto;
+        object-position: center;
+        width: 15px;
+        margin: auto 0;
+      }
+
+      .contact-info-text-content {
+        font-family: Roboto, sans-serif;
+      }
+
+      .follow-us-column-wrapper {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        width: 33%;
+        margin-left: 20px;
+      }
+
+      @media (max-width: 991px) {
+        .follow-us-column-wrapper {
+          width: 100%;
+        }
+      }
+
+      .follow-us-content-wrapper {
+        align-self: stretch;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        padding: 10px 10px 39px;
+      }
+
+      @media (max-width: 991px) {
+        .follow-us-content-wrapper {
+          margin-top: 40px;
+        }
+      }
+
+      .follow-us-title-text {
+        color: #29434d;
+        font: 600 22px/100% Roboto, sans-serif;
+      }
+
+      .social-icons-wrapper {
+        justify-content: start;
+        align-items: start;
+        display: flex;
+        /*  margin-top: 20px;
+    padding: 0 60px; */
+      }
+
+      @media (max-width: 991px) {
+        .social-icons-wrapper {
+          padding: 0 20px;
+        }
+      }
+
+      .social-icons-list-wrapper {
+        display: flex;
+        gap: 5px;
+      }
+
+      .social-icon-link-wrapper {
+        justify-content: center;
+        align-items: center;
+        border-radius: 3.4px;
+        display: flex;
+        width: 34px;
+        height: 34px;
+        padding: 9px;
+      }
+
+      .facebook-icon-wrapper {
+        background-color: #3b5998;
+      }
+
+      .twitter-icon-wrapper {
+        background-color: #1da1f2;
+      }
+
+      .youtube-icon-wrapper {
+        background-color: #cd201f;
+      }
+
+      .social-icon-image-element {
+        aspect-ratio: 1;
+        object-fit: auto;
+        object-position: center;
+        width: 17px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div">
+      <div class="div-2">
+        <div class="div-3">
+          <div class="div-4" id="bussinessname">HVAC</div>
+          <div class="div-5">
+            <div class="div-6">Home</div>
+            <div class="div-7">Services</div>
+            <div class="div-8">About</div>
+            <div class="div-9">Contact</div>
+          </div>
+          <div class="div-10">Get Started</div>
+        </div>
+        <div class="div-11">
+          <div class="div-12">
+            <div class="column">
+              <section class="div-13 section" data-section="1">
+                <div class="div-14" id="shortIntro">
+                  Your Trusted Local Services Partner
+                </div>
+                <span class="hero-heading div-15" id="heroHeading">
+                  Elevate Your Living
+                  <br />
+                  with Our Expert
+                  <br />
+                  Services
+                </span>
+                <div class="div-16 description" id="shortDescription">
+                  Experience top-notch solutions for your home needs. We're
+                  <br />
+                  committed to quality, reliability, and satisfaction.
+                </div>
+                <div class="div-17">Get Started</div>
+              </section>
+            </div>
+            <div class="column-2">
+              <img
+                loading="lazy"
+                srcset="
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=100   100w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=200   200w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=400   400w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=800   800w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=1200 1200w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=1600 1600w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&width=2000 2000w,
+                  https://cdn.builder.io/api/v1/image/assets/TEMP/35c958db95737dc19003512e5dceaa578fe5be980589e78fa933f2767079d986?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&
+                "
+                class="img"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="why-choose-us section" data-section="2">
+      <div class="value-proposition">
+        <h3 class="section-subtitle heading" id="whyChooseUsTitle">
+          Why Choose Us?
+        </h3>
+        <h2 class="section-title description">Our Unique Value Proposition</h2>
+        <div class="features-container">
+          <div class="features-row">
+            <div class="feature-column">
+              <div class="feature-card">
+                <h4 class="feature-title" id="whyChooseUsReason1">
+                  Prompt Service
+                </h4>
+
+                <p class="feature-description">
+                  Count on us for quick and efficient <br />
+                  solutions. We prioritize your needs <br />
+                  and respond promptly to every <br />
+                  request.
+                </p>
+              </div>
+            </div>
+            <div class="feature-column">
+              <div class="feature-card">
+                <h4 class="feature-title" id="whyChooseUsReason2">
+                  Expert Team
+                </h4>
+
+                <p class="feature-description">
+                  Our skilled professionals bring years <br />
+                  of experience, ensuring you receive <br />
+                  the highest standard of workmanship <br />
+                  and advice.
+                </p>
+              </div>
+            </div>
+            <div class="feature-column">
+              <div class="feature-card">
+                <h4 class="feature-title" id="whyChooseUsReason3">
+                  Comprehensive <br />
+                  Solutions
+                </h4>
+
+                <p class="feature-description">
+                  From installations to repairs, we offer <br />
+                  a wide range of services to cover all <br />
+                  your home service requirements.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="quick-services-section">
+      <div class="quick-services-container">
+        <div class="quick-services-subtitle" id="shortServiceShortIntro">
+          Swift and Reliable Solutions
+        </div>
+        <div class="quick-services-title" id="serviceIntro">
+          Quick Services, Anytime You Need
+        </div>
+        <div class="quick-services-description">
+          We understand emergencies can happen anytime. That's why our dedicated
+          team is always ready to tackle urgent <br />
+          situations with speed and efficiency.
+        </div>
+        <div class="quick-services-contact">
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b4b298881dc4adfceb4173ef07970c5aff4b4e9be7c955fd910d931aff42e30b?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+            alt="Phone icon"
+            class="quick-services-icon"
+          />
+          <div class="quick-services-phone">202-555-0188</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="services-section">
+      <div class="services-container">
+        <div class="services-content">
+          <div class="services-info">
+            <p class="services-subtitle">Our Services</p>
+            <h2 class="services-title">
+              Explore Our <br />
+              Comprehensive <br />
+              Services
+            </h2>
+            <p class="services-description" id="serviceDescription">
+              Discover a range of services designed to enhance your home and
+              <br />
+              elevate your lifestyle.
+            </p>
+            <a href="#" class="services-cta">All services</a>
+          </div>
+          <div class="services-list">
+            <div class="service-item">
+              <h3 class="service-name">Service 1</h3>
+              <p class="service-details">
+                Share some details here. This is a flexible section where <br />
+                you can share anything you want. It could be details or <br />
+                some information about your services.
+              </p>
+            </div>
+            <div class="service-item">
+              <h3 class="service-name">Service 2</h3>
+              <p class="service-details">
+                Share some details here. This is a flexible section where <br />
+                you can share anything you want. It could be details or <br />
+                some information about your services.
+              </p>
+            </div>
+            <div class="service-item">
+              <h3 class="service-name">Service 3</h3>
+              <p class="service-details">
+                Share some details here. This is a flexible section where <br />
+                you can share anything you want. It could be details or <br />
+                some information about your services.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <div class="testimonials-container">
+        <header class="testimonials-header">
+          <h2 class="testimonials-title">What Our Clients Say</h2>
+          <div class="testimonials-images">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e582aa961b612295517e5df99357227358bd389f8836491763aad9c9c61c4a0a?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+              alt=""
+              class="testimonials-image-1"
+            />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/913c16649310c556313c40275bf6c0575f7e4b017da6223cbb39c60170e11d66?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+              alt=""
+              class="testimonials-image-2"
+            />
+          </div>
+        </header>
+        <div class="testimonials-content">
+          <div class="testimonials-row">
+            <div class="testimonial-column">
+              <div class="testimonial-card">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b61126b415025e5242a0ce24578c9d3d16f3e2871d9000e5fe3f266e19f09c36?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+                  alt=""
+                  class="testimonial-icon"
+                />
+                <p class="testimonial-text">
+                  Outstanding service from start to <br />
+                  finish! They tackled my plumbing <br />
+                  issues promptly and left everything <br />
+                  neat and tidy.
+                </p>
+                <div class="testimonial-author">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/c57be080600611f4357268a8939118d2d8dd3c5086459cd0d61888e8c42ad940?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+                    alt=""
+                    class="testimonial-author-image"
+                  />
+                  <span class="testimonial-author-name">Your Client</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-column">
+              <div class="testimonial-card">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b61126b415025e5242a0ce24578c9d3d16f3e2871d9000e5fe3f266e19f09c36?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+                  alt=""
+                  class="testimonial-icon"
+                />
+                <p class="testimonial-text">
+                  I'm beyond impressed with their <br />
+                  expertise. They fixed my electrical <br />
+                  problem efficiently, and I feel much <br />
+                  safer in my home now.
+                </p>
+                <div class="testimonial-author">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/4a2d14d7a020d79e05f571965b1319880ec88a3f5699dcb4dd9d3972bfc2a255?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+                    alt=""
+                    class="testimonial-author-image"
+                  />
+                  <span class="testimonial-author-name">Your Client</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-column">
+              <div class="testimonial-card">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b61126b415025e5242a0ce24578c9d3d16f3e2871d9000e5fe3f266e19f09c36?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+                  alt=""
+                  class="testimonial-icon"
+                />
+                <p class="testimonial-text">
+                  Reliable and professional team. <br />
+                  They saved the day when my HVAC <br />
+                  system broke down, ensuring my <br />
+                  family's comfort was restored <br />
+                  quickly.
+                </p>
+                <div class="testimonial-author">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/77d9660eb1efc69ebf0da9e808d76b53e32d17e3802d94dbb50ef4d314a22c5c?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+                    alt=""
+                    class="testimonial-author-image"
+                  />
+                  <span class="testimonial-author-name">Your Client</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-us-section">
+      <div class="about-us-container">
+        <div class="about-us-content">
+          <div class="about-us-text">
+            <div class="about-us-details">
+              <p class="about-us-subtitle">About Us</p>
+              <h2 class="about-us-title" id="aboutUsHeading">
+                Your Local Service <br />
+                Experts
+              </h2>
+              <p class="about-us-description" id="aboutUsDescription">
+                We are a dedicated team of professionals committed to <br />
+                enhancing your home's functionality and comfort. With years of
+                <br />
+                experience, we take pride in delivering top-notch services
+                tailored <br />
+                to your needs.
+              </p>
+              <button class="div-10">Read More</button>
+            </div>
+          </div>
+          <div class="about-us-image">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6d5689e3ac6cb2e735ae7fae32897a80f5fb93eab0f457e6750d76e38978ddb0?apiKey=3cdd16351f8a403aa2655a0fdd7a55aa&"
+              alt="About Us"
+              class="about-us-img"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="connect-section">
+      <div class="connect-container">
+        <div class="connect-content">
+          <h2 class="connect-title" id="contactUsHeading">Connect with Us</h2>
+          <p class="connect-description" id="callUsTextDescription">
+            Ready to Enhance Your Home? Us Today
+          </p>
+          <button class="connect-button">Get Started</button>
+          <p class="connect-phone-label">or call us at:</p>
+          <p class="connect-phone">202-555-0188</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-wrapper">
+      <div class="footer-content-wrapper">
+        <div class="about-us-column-wrapper">
+          <div class="about-us-content-wrapper">
+            <h2 class="about-us-title-text">About Us</h2>
+            <p class="about-us-description-text">
+              We are a team of passionate individuals dedicated to delivering
+              high-quality products and exceptional customer service. With years
+              of experience in the industry, we strive to exceed expectations
+              and provide innovative solutions to meet our clients' needs.
+            </p>
+          </div>
+        </div>
+        <div class="contact-info-column-wrapper">
+          <div class="contact-info-content-wrapper">
+            <h3 class="contact-info-title-text">Contact Info</h3>
+            <div class="contact-info-item-wrapper">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png"
+                alt="Address Icon"
+                class="contact-info-icon-image"
+              />
+              <p class="contact-info-text-content">
+                A: 2360 Hood Avenue, San Diego, CA, 92123
+              </p>
+            </div>
+            <div class="contact-info-item-wrapper">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3059/3059446.png"
+                alt="Phone Icon"
+                class="contact-info-icon-image"
+              />
+              <p class="contact-info-text-content">P: 202-555-0188</p>
+            </div>
+            <div class="contact-info-item-wrapper">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3296/3296467.png"
+                alt="Email Icon"
+                class="contact-info-icon-image"
+              />
+              <p class="contact-info-text-content">E: contact@example.com</p>
+            </div>
+          </div>
+        </div>
+        <div class="follow-us-column-wrapper">
+          <div class="follow-us-content-wrapper">
+            <h3 class="follow-us-title-text">Follow Us</h3>
+            <div class="social-icons-wrapper">
+              <ul class="social-icons-list-wrapper">
+                <li>
+                  <a
+                    href="https://www.facebook.com/example"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-icon-link-wrapper facebook-icon-wrapper"
+                  >
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png"
+                      alt="Facebook"
+                      class="social-icon-image-element"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.twitter.com/example"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-icon-link-wrapper twitter-icon-wrapper"
+                  >
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/733/733579.png"
+                      alt="Twitter"
+                      class="social-icon-image-element"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/example"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-icon-link-wrapper youtube-icon-wrapper"
+                  >
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+                      alt="YouTube"
+                      class="social-icon-image-element"
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // function typeEffect(elementId, text, speed) {
+      //   let index = 0;
+      //   const element = document.getElementById(elementId);
+      //   const section = element.closest('section'); // Find the closest ancestor with class 'section'
+
+      //   const interval = setInterval(() => {
+      //     if (index < text.length) {
+      //       element.textContent = text.substring(0, index + 1);
+      //       index++;
+      //     } else {
+      //       clearInterval(interval);
+      //     }
+      //   }, speed);
+
+      //   // Scroll to the section as typing starts
+      //   if (section) {
+      //     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      //   }
+      // }
+
+      // Define an array of element IDs
+      const elementIds = [
+        "bussinessname",
+        "heroHeading",
+        "shortDescription",
+        "whyChooseUsTitle",
+        "whyChooseUsReason1",
+        "whyChooseUsReason2",
+        "whyChooseUsReason3",
+        "shortServiceShortIntro",
+        "serviceIntro",
+        "serviceDescription",
+        "aboutUsHeading",
+        "aboutUsDescription",
+        "contactUsHeading",
+        "callUsTextDescription",
+      ];
+
+      // Function to execute typeEffect sequentially for each element
+      function typeEffectSequentially(elementIds, index = 0) {
+        if (index < elementIds.length) {
+          const elementId = elementIds[index];
+          const text = document.getElementById(elementId).textContent;
+          typeEffect(elementId, text, 50, () => {
+            // Callback function to call typeEffectSequentially for the next element
+            typeEffectSequentially(elementIds, index + 1);
+          });
+        }
+      }
+
+      // Function to simulate typing effect for a single element
+      function typeEffect(elementId, text, speed, callback) {
+        let index = 0;
+        const element = document.getElementById(elementId);
+        const section = element.closest("section"); // Find the closest ancestor with tag 'section'
+
+        const interval = setInterval(() => {
+          if (index < text.length) {
+            element.textContent = text.substring(0, index + 1);
+            index++;
+          } else {
+            clearInterval(interval);
+            if (callback) {
+              callback(); // Call the callback function when typing finishes
+            }
+          }
+        }, speed);
+
+        // Scroll to the section as typing starts
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+
+      // Start typing sequentially for each element
+
+      window.addEventListener("message", function (event) {
+        var data = event.data;
+        console.log("data from template1", data);
+        if (data.shortIntro) {
+          typeEffectSequentially(elementIds);
+          typeEffect("bussinessname", data.bussinessname, 0);
+          typeEffect("shortIntro", data.shortIntro, 0);
+          typeEffect("heroHeading", data.heroHeading, 0);
+          typeEffect("shortDescription", data.shortDescription, 0);
+          typeEffect("whyChooseUsTitle", data.whyChooseUsTitle, 0);
+          typeEffect("whyChooseUsReason1", data.whyChooseUsReason1, 0);
+          typeEffect("whyChooseUsReason2", data.whyChooseUsReason2, 0);
+          typeEffect("whyChooseUsReason3", data.whyChooseUsReason3, 0);
+          typeEffect("shortServiceShortIntro", data.shortServiceShortIntro, 0);
+          typeEffect("serviceIntro", data.serviceIntro, 0);
+          typeEffect("serviceDescription", data.serviceDescription, 0);
+          typeEffect("aboutUsHeading", data.aboutUsHeading, 0);
+          typeEffect("aboutUsDescription", data.aboutUsDescription, 0);
+          typeEffect("contactUsHeading", data.contactUsHeading, 0);
+          typeEffect("callUsTextDescription", data.callUsTextDescription, 0);
+        } else if (data.type === "scroll") {
+          // Handle scroll message
+          handleScrollMessage(data.scrollAmount);
+        } else if (data.type === "stopScrolling") {
+          // Handle stop scrolling message
+          stopScrolling();
+        } else if (data.type === "reverScroll") {
+          reverseScroll();
+        }
+      });
+
+      // Function to handle scrolling based on scroll amount
+      function handleScrollMessage(scrollAmount) {
+        // Scroll the window by the specified amount
+        // window.scrollBy({left:0, top:document.body.scrollHeight,behavior:"smooth"});
+        document.body.style.transition = "transform 10s linear";
+        document.body.style.transform = `translateY(-${
+          document.body.scrollHeight - window.innerHeight
+        }px)`;
+      }
+
+      // Function to stop scrolling
+      function stopScrolling() {
+        // Stop any ongoing scrolling
+        // You may implement additional logic if needed
+        document.body.style.transform = `translateY(${
+          document.body.getBoundingClientRect().top
+        }px)`;
+        document.body.style.transition = "transform 8s linear";
+        document.body.style.transform = `translateY(0)`;
+      }
+      function reverseScroll() {
+        // Calculate the target scroll position (bottom of the page)
+        var targetPosition = document.body.scrollHeight - window.innerHeight;
+        // Calculate the current scroll position
+        var currentPosition = window.scrollY;
+
+        // Calculate the distance to scroll in each step
+        var step = 10; // Adjust the step size for smoother or slower animation
+        var distance = Math.abs(targetPosition - currentPosition);
+        var numSteps = Math.ceil(distance / step);
+
+        // Calculate the direction of scrolling
+        var direction = Math.sign(targetPosition - currentPosition);
+
+        // Start the scroll animation
+        var currentStep = 0;
+        var scrollIntervalId = setInterval(function () {
+          // Incrementally scroll in the specified direction
+          window.scrollBy(0, direction * step);
+          currentStep++;
+
+          // Check if reached the top of the page or exceeded the number of steps
+          if (window.scrollY <= 0 || currentStep >= numSteps) {
+            // Clear the scroll interval
+            clearInterval(scrollIntervalId);
+          }
+        }, 20);
+      }
+    </script>
+
+    <!-- <script>
+  window.addEventListener("message", (event) => {
+    
+    
+    // Update content for each section
+    for (let i = 1; i <= 6; i++) {
+      // Get the section element with the corresponding data-section attribute
+      const sectionElement = document.querySelector(`.section[data-section="${i}"]`);
+      const sectionData = event.data;
+      
+      // Update content within the section
+      const heroHeadingElement = sectionElement.querySelector('.hero-heading');
+      const descriptionElement = sectionElement.querySelector('.description');
+      heroHeadingElement.textContent = sectionData[`heroHeading${i}`];
+      descriptionElement.textContent = sectionData[`description${i}`];
+      
+      // Optional: Update section title if needed
+      // const sectionTitleElement = sectionElement.querySelector('h2');
+      // sectionTitleElement.textContent = receivedData[`section${i}`];
+    }
+  });
+</script> -->
+    <!-- <script>
+  window.addEventListener("message", (event) => {
+    const messageFromParent = document.getElementById("messageFromParent");
+    messageFromParent.textContent = event.data;
+    
+    
+  });
+</script> -->
+  </body>
+</html>

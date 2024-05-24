@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <>
+    <div>
+          <div className=''> 
+            <div className='space-y-5 px-10 lg:px-16  mt-12'>
+          <h1 className='text-3xl font-bold leading-9'> Choose the structure for your website</h1> 
+          <p className="text-base font-normal leading-6 text-app-text">Select your preferred structure for your website from the options below.</p>
+            </div>
+            <div className='pb-2 px-10 lg:px-16 xl:pr-36 xl:pl:24 pt-12 custom-confirmation-modal-scrollbar relative'>
+             <div className='flex flex-row flex-wrap items-start gap-10 mb-10'>
+
+             {webSiteList.map((list, index) => (
+        <div
+          key={index}
+          onClick={() => handleIndex(index)}
+          className={`w-[calc(50%_-_20px)] border-app-border-hover cursor-pointer p-1 ${
+            activeIndex === index ? 'border-2 border-palatinate-blue-300 rounded-lg bg-palatinate-blue-100' : 'border'
+          }`}
+        >
+          <div className="w-full h-fit p-1 bg-app-light-background">
+            <div className="w-full max-h-[calc(19_/_15_*_100%)] pt-[calc(19_/_15_*_100%)] relative shadow-md overflow-hidden bg-neutral-300">
+              <div className="scale-[0.33] w-[1200px] h-[1600px] absolute left-0 top-0 origin-top-left">
+                <iframe className="absolute w-[1200px] h-[1600px] pb-56" src={list.link} />
+              </div>
+              <div className="absolute bottom-0 w-full h-14 flex items-center justify-between bg-white px-5 shadow-template-info">
+                <div className="zw-base-semibold text-app-heading capitalize">{list.option}</div>
+                {activeIndex === index ? <CheckCircleIcon className="text-palatinate-blue-600" /> : <span></span>}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+              
+             <div>
+      
+    </div>
+
+
+
+
+
+             
+
+       
+
+             </div>
+
+            </div>
+            <NextButtons />
+          </div>
+          </div>
+    </>
+</body>
+</html>
+
+
+
+const elementIds = ["bussinessname", "shortIntro", "heroHeading", "shortDescription","whyChooseUsTitle","whyChooseUsReason1","whyChooseUsReason2","whyChooseUsReason3","shortServiceShortIntro","serviceIntro","serviceDescription", "aboutUsHeading","aboutUsDescription","contactUsHeading","callUsTextDescription"];
+
+// Function to execute typeEffect sequentially for each element
+function typeEffectSequentially(elementIds, index = 0) {
+  if (index < elementIds.length) {
+    const elementId = elementIds[index];
+    const text = document.getElementById(elementId).textContent;
+    typeEffect(elementId, text, 50, () => {
+      // Callback function to call typeEffectSequentially for the next element
+      typeEffectSequentially(elementIds, index + 1);
+    });
+  }
+}
+
+// Function to simulate typing effect for a single element
+function typeEffect(elementId, text, speed, callback) {
+  let index = 0;
+  const element = document.getElementById(elementId);
+  const section = element.closest('section'); // Find the closest ancestor with tag 'section'
+  
+  const interval = setInterval(() => {
+    if (index < text.length) {
+      element.textContent = text.substring(0, index + 1);
+      index++;
+    } else {
+      clearInterval(interval);
+      if (callback) {
+        callback(); // Call the callback function when typing finishes
+      }
+    }
+  }, speed);
+
+  // Scroll to the section as typing starts
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth'});
+  }
+}
+
+// Start typing sequentially for each element
+
+
+
+
+
+
+
+  window.addEventListener('message', function(event) {
+    var data = event.data;
+    console.log("data from template1",data)
+    if (data.shortIntro) {
+
+
+
+
+  typeEffectSequentially(elementIds);    
+  typeEffect("bussinessname", data.bussinessname, 50);
+  typeEffect("shortIntro", data.shortIntro, 50);
+  typeEffect("heroHeading", data.heroHeading, 50);
+  typeEffect("shortDescription", data.shortDescription, 50);
+  typeEffect("whyChooseUsTitle", data.whyChooseUsTitle, 50);
+  typeEffect("whyChooseUsReason1", data.whyChooseUsReason1, 50);
+  typeEffect("whyChooseUsReason2", data.whyChooseUsReason2, 50);
+  typeEffect("whyChooseUsReason3", data.whyChooseUsReason3, 50);
+  typeEffect("shortServiceShortIntro", data.shortServiceShortIntro, 50);
+  typeEffect("serviceIntro", data.serviceIntro, 50);
+  typeEffect("serviceDescription", data.serviceDescription, 50);
+  typeEffect("aboutUsHeading", data.aboutUsHeading, 50);
+  typeEffect("aboutUsDescription", data.aboutUsDescription, 50);
+  typeEffect("contactUsHeading", data.contactUsHeading, 50);
+  typeEffect("callUsTextDescription", data.callUsTextDescription, 50);
+    

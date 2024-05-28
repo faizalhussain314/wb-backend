@@ -40,7 +40,6 @@ export default class Server {
     this.application.use(json());
     this.application.use(cors({ origin: "*" }));
     this.application.use((req: Request, res: Response, next: NextFunction) => {
-      res.removeHeader("X-Frame-Options");
       next();
     });
 

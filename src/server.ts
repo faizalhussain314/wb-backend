@@ -40,38 +40,31 @@ export default class Server {
     this.application.use(json());
     this.application.use(cors({ origin: "*" }));
     this.application.use((req: Request, res: Response, next: NextFunction) => {
-      res.setHeader(
-        "X-Frame-Options",
-        "ALLOW-FROM https://your-frontend-domain.com"
-      );
-      res.setHeader(
-        "Content-Security-Policy",
-        "frame-ancestors 'self' https://ai-builder-backend.onrender.com http://localhost:5174 http://localhost:5173"
-      );
+      //   res.setHeader(
+      //     "X-Frame-Options",
+      //     "ALLOW-FROM https://your-frontend-domain.com"
+      //   );
+      //   res.setHeader(
+      //     "Content-Security-Policy",
+      //     "frame-ancestors 'self' https://ai-builder-backend.onrender.com http://localhost:5174 http://localhost:5173"
+      //   );
       next();
     });
 
     this.application.use(express.static("./static", { index: false }));
     this.application.use("", webRouter);
 
-    this.application.use(
-      helmet({
-        contentSecurityPolicy: {
-          directives: {
-            defaultSrc: ["'self'"],
-            frameAncestors: [
-              "*",
-              "'self'",
-              "https://your-frontend-domain.com",
-              "https://ai-builder-backend.onrender.com",
-              "http://localhost:5174",
-              "http://localhost:5173",
-            ],
-          },
-        },
-        frameguard: false, // Disable frameguard since we set X-Frame-Options manually
-      })
-    );
+    // this.application.use(
+    //   helmet({
+    //     contentSecurityPolicy: {
+    //       directives: {
+    //         defaultSrc: ["'self'"],
+    //         frameAncestors: ["*"],
+    //       },
+    //     },
+    //     frameguard: false, // Disable frameguard since we set X-Frame-Options manually
+    //   })
+    // );
   }
 
   /**

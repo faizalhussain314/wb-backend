@@ -40,14 +40,6 @@ export default class Server {
     this.application.use(json());
     this.application.use(cors({ origin: "*" }));
     this.application.use((req: Request, res: Response, next: NextFunction) => {
-      res.setHeader(
-        "X-Frame-Options",
-        "ALLOW-FROM https://your-frontend-domain.com"
-      );
-      res.setHeader(
-        "Content-Security-Policy",
-        "frame-ancestors 'self' https://ai-builder-backend.onrender.com/"
-      );
       next();
     });
 
@@ -59,10 +51,7 @@ export default class Server {
         contentSecurityPolicy: {
           directives: {
             defaultSrc: ["'self'"],
-            frameAncestors: [
-              "'self'",
-              "https://ai-builder-backend.onrender.com/",
-            ],
+            frameAncestors: ["*"],
           },
         },
         frameguard: false, // Disable frameguard since we set X-Frame-Options manually

@@ -1,0 +1,188 @@
+<script>
+  let originalPrompts = {};
+  let isFetching = false; // To prevent multiple API calls
+
+  function collectPrompts() {
+    const prompts = {};
+    document.querySelectorAll("[id]").forEach((element) => {
+      prompts[element.id] = element.textContent;
+    });
+    console.log("Collected Prompts:", prompts);
+    return prompts;
+  }
+
+  function sendPromptsToParent() {
+    const prompts = collectPrompts();
+    originalPrompts = prompts;
+    console.log("prompts are sent from iframe", prompts);
+    window.parent.postMessage({ type: "storePrompts", prompts }, "*"); // Replace '*' with specific origin for security
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOMContentLoaded event triggered");
+    sendPromptsToParent();
+  });
+
+  function typeEffect(elementId, text, speed, callback) {
+    let index = 0;
+    const element = document.getElementById(elementId);
+    const section = element.closest("section");
+
+    element.textContent = ""; // Clear the element's content before starting the typing effect
+
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        element.textContent += text.charAt(index);
+        index++;
+      } else {
+        clearInterval(interval);
+        if (callback) {
+          callback(); // Call the callback function when typing finishes
+        }
+      }
+    }, speed);
+
+    // Scroll to the section as typing starts
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  // Function to execute typeEffect sequentially for each element
+  function typeEffectSequentially(elementIds, index = 0) {
+    if (index < elementIds.length) {
+      const elementId = elementIds[index];
+      console.log("Typing elementId:", elementId);
+      const text = originalPrompts[elementId]; // Use the original prompts for typing effect
+      typeEffect(elementId, text, 50, () => {
+        // Callback function to call typeEffectSequentially for the next element
+        typeEffectSequentially(elementIds, index + 1);
+      });
+    }
+  }
+
+  async function fetchContentFromAPI(prompts) {
+    if (isFetching) return;
+    isFetching = true; // Set fetching flag
+
+    try {
+      const gptPrompt = `Write website content for these business ${
+        prompts.businessName
+      } prompts and the description ${
+        prompts.description
+      }. If values are null or undefined, create them on your own. Prompts: ${JSON.stringify(
+        prompts.originalPrompts
+      )} I want the same JSON structure so don't change the JSON structure`;
+
+      const response = await fetch(
+        "http://localhost:8080/StreamIframeController",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: gptPrompt }),
+        }
+      );
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let result = "";
+      let content = {};
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        result += decoder.decode(value, { stream: true });
+
+        // Parse the result incrementally
+        try {
+          content = JSON.parse(result);
+          console.log("Fetched Content:", content);
+          // Update the content with a typing effect
+          for (const key in content) {
+            const element = document.getElementById(key);
+            if (element) {
+              typeEffect(element, content[key], 0);
+            }
+          }
+        } catch (e) {
+          // If JSON parsing fails, continue accumulating more data
+        }
+      }
+
+      // After fetching content, proceed with the event data handling
+      handleEventData(prompts);
+    } catch (error) {
+      console.error("Error fetching content from API:", error);
+    } finally {
+      isFetching = false; // Reset fetching flag
+    }
+  }
+
+  function handleEventData(eventData) {
+    console.log("event data from initial function", eventData);
+    const elementIds = getElementIds();
+    typeEffectSequentially(elementIds);
+    for (const key in eventData) {
+      if (eventData.hasOwnProperty(key)) {
+        typeEffect(key, eventData[key], 0);
+      }
+    }
+  }
+
+  function getElementIds() {
+    const elementIds = [];
+    document.querySelectorAll("[id]").forEach((element) => {
+      elementIds.push(element.id);
+    });
+    console.log("Element IDs:", elementIds);
+    return elementIds;
+  }
+
+  window.addEventListener("message", function (event) {
+    console.log("Received Message:", event.data);
+    if (event.data.type === "start") {
+      if (!originalPrompts || Object.keys(originalPrompts).length === 0) {
+        originalPrompts = collectPrompts();
+        console.log("Original prompts collected", originalPrompts);
+      }
+      fetchContentFromAPI(event.data);
+    } else if (event.data.type === "regenerate") {
+      fetchContentFromAPI({ ...event.data, originalPrompts });
+    } else {
+      handleEventData(event.data);
+    }
+  });
+
+  // Function to handle scrolling based on scroll amount
+  function handleScrollMessage(scrollAmount) {
+    document.body.style.transition = "transform 10s linear";
+    document.body.style.transform = `translateY(-${
+      document.body.scrollHeight - window.innerHeight
+    }px)`;
+  }
+
+  // Function to stop scrolling
+  function stopScrolling() {
+    document.body.style.transition = "transform 0s linear";
+    document.body.style.transform = "translateY(0)";
+  }
+
+  function reverseScroll() {
+    var targetPosition = document.body.scrollHeight - window.innerHeight;
+    var currentPosition = window.scrollY;
+    var step = 10;
+    var distance = Math.abs(targetPosition - currentPosition);
+    var numSteps = Math.ceil(distance / step);
+    var direction = Math.sign(targetPosition - currentPosition);
+    var currentStep = 0;
+    var scrollIntervalId = setInterval(function () {
+      window.scrollBy(0, direction * step);
+      currentStep++;
+      if (window.scrollY <= 0 || currentStep >= numSteps) {
+        clearInterval(scrollIntervalId);
+      }
+    }, 20);
+  }
+</script>

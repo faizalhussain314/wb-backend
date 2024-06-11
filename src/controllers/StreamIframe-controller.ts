@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import OpenAI from "openai";
 
-export default class StreamContentController {
+export default class StreamIframeController {
   static async default(req: Request, res: Response) {
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
@@ -20,6 +20,7 @@ export default class StreamContentController {
         messages: [{ role: "user", content: prompt }],
         stream: true,
       });
+
       for await (const chunk of stream) {
         res.write(chunk.choices[0]?.delta?.content || "");
       }

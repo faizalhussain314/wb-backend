@@ -28,7 +28,6 @@ $RECYCLE.BIN/
 
 # Ignore script files that are automatically generated
 *.cmd
-*.sh
 
 # Ignore build directories and files
 build/

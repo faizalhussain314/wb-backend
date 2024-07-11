@@ -25,7 +25,7 @@ export default class Server {
   private httpServer: HTTPServer;
 
   constructor() {
-    this.PORT = parseInt(process.env.PORT) || 8080;
+    this.PORT = 8888;
     this.application = express();
     this.httpServer = createServer(this.application);
   }

@@ -1825,11 +1825,14 @@
 
         // Fetch selectors list
         function fetchSelectorsList() {
-          return fetch(`${API_BASE_URL}/ai/builder/getSelector`)
+          return fetch(
+            `https://dev.gravitywrite.com/api/ai/builder/getSelector`
+          )
             .then((response) => response.json())
             .then((data) => {
-              console.log("data's value", data);
-              return data.data.selectorslist.map((selector) => selector);
+              return data.data.selectorslist.map(
+                (selector) => selector.split(". ")[1]
+              );
             })
             .catch((error) => {
               console.error("Error fetching selectors:", error);
@@ -1837,17 +1840,41 @@
             });
         }
 
+        // Function to update element with content using typing effect
+        function typeEffect(element, text, speed, callback) {
+          let index = 0;
+          element.textContent = "";
+
+          const interval = setInterval(() => {
+            if (index < text.length) {
+              element.textContent += text.charAt(index);
+              index++;
+            } else {
+              clearInterval(interval);
+              if (callback) {
+                callback();
+              }
+            }
+          }, speed);
+        }
+
+        // Function to scroll into view
+        function scrollToSection(element) {
+          const section = element.closest("section");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+
         // Function to update element with content
         function updateElement(selector, content) {
           const element = document.getElementById(selector);
-          if (!element) {
-            console.log(`Element with ID "${selector}" not found.`);
-            return;
+          if (element) {
+            // Remove the word "data" from the content
+            const cleanedContent = content.replace(/data:/g, "");
+            scrollToSection(element); // Scroll to the section containing the element
+            typeEffect(element, cleanedContent, 50);
           }
-          console.log("Updating element", element);
-          // Remove the word "data" from the content
-          const cleanedContent = content.replace(/data:/g, "");
-          element.textContent = cleanedContent;
         }
 
         // Fetch and stream content
@@ -1885,7 +1912,140 @@
           if (event.data.type === "start") {
             fetchSelectorsList().then((fetchedSelectors) => {
               selectors = fetchedSelectors;
-              console.log("Fetched selectors:", selectors);
+              fetchStreamedContent();
+            });
+          }
+        });
+      });
+    </script>
+    -->
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const API_BASE_URL = "https://dev.gravitywrite.com/api";
+        let selectors = [];
+        let streamedContent = "";
+        let currentIndex = 0;
+
+        // Fetch selectors list
+        function fetchSelectorsList() {
+          return fetch(`${API_BASE_URL}/ai/builder/getSelector`)
+            .then((response) => response.json())
+            .then((data) => {
+              return data.data.selectorslist.map(
+                (selector) => selector.split(". ")[1]
+              );
+            })
+            .catch((error) => {
+              console.error("Error fetching selectors:", error);
+              return [];
+            });
+        }
+
+        // Function to update element with content using typing effect
+        function typeEffect(element, text, speed, callback) {
+          let index = 0;
+          element.textContent = "";
+
+          const interval = setInterval(() => {
+            if (index < text.length) {
+              element.textContent += text.charAt(index);
+              index++;
+            } else {
+              clearInterval(interval);
+              if (callback) {
+                callback();
+              }
+            }
+          }, speed);
+        }
+
+        // Function to scroll into view
+        function scrollToSection(element) {
+          const section = element.closest("section");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+
+        // Function to update element with content
+        function updateElement(selector, content, callback) {
+          const element = document.getElementById(selector);
+          if (element) {
+            // Remove the word "data" from the content
+            const cleanedContent = content.replace(/data:/g, "");
+            scrollToSection(element); // Scroll to the section containing the element
+            typeEffect(element, cleanedContent, 50, callback);
+          } else if (callback) {
+            callback();
+          }
+        }
+
+        // Function to process the next content part
+        function processNextContentPart(contentParts) {
+          if (currentIndex < selectors.length) {
+            const contentPart = contentParts[currentIndex];
+            console.log(
+              `Processing content part for index ${currentIndex}:`,
+              contentPart
+            );
+
+            if (contentPart !== undefined) {
+              updateElement(selectors[currentIndex], contentPart.trim(), () => {
+                currentIndex++;
+                processNextContentPart(contentParts);
+              });
+            } else {
+              console.log(
+                `Content part for index ${currentIndex} is undefined.`
+              );
+              currentIndex++;
+              processNextContentPart(contentParts);
+            }
+          }
+        }
+
+        // Fetch and stream content
+        function fetchStreamedContent() {
+          fetch(`${API_BASE_URL}/ai/builder/streamed`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((response) => response.body.getReader())
+            .then((reader) => {
+              const decoder = new TextDecoder("utf-8");
+              let streamedContent = "";
+
+              function readStream() {
+                reader.read().then(({ done, value }) => {
+                  if (done) {
+                    return;
+                  }
+
+                  streamedContent += decoder.decode(value, { stream: true });
+                  console.log("Streamed content so far:", streamedContent);
+
+                  const contentParts = streamedContent.split(";");
+                  console.log("Streamed content parts:", contentParts);
+
+                  // Process content parts one by one
+                  processNextContentPart(contentParts);
+
+                  readStream(); // Continue reading the stream
+                });
+              }
+
+              readStream();
+            })
+            .catch((error) => {
+              console.error("Error fetching streaming content:", error);
+            });
+        }
+
+        // Listen for messages from parent
+        window.addEventListener("message", function (event) {
+          if (event.data.type === "start") {
+            fetchSelectorsList().then((fetchedSelectors) => {
+              selectors = fetchedSelectors;
               fetchStreamedContent();
             });
           }
@@ -1894,6 +2054,38 @@
     </script>
 
     <script>
+      window.addEventListener("message", function (event) {
+        if (event.data.type === "changeFont") {
+          const link = document.createElement("link");
+          link.href = `https://fonts.googleapis.com/css2?family=${event.data.font.replace(
+            / /g,
+            "+"
+          )}&display=swap`;
+          link.rel = "stylesheet";
+          document.head.appendChild(link);
+          document.body.style.fontFamily = event.data.font;
+
+          document.body.setAttribute(
+            "style",
+            `font-family: ${event.data.font} !important;`
+          );
+          // const style = document.createElement("style");
+          // style.innerHTML = `*{font-family: ${event.data.font} !important;}`;
+          // document.head.appendChild(style);
+        } else if (event.data.type == "changeGlobalColors") {
+          document.documentElement.style.setProperty(
+            "--primary-color",
+            event.data.primaryColor
+          );
+          document.documentElement.style.setProperty(
+            "--secondary-color",
+            event.data.secondaryColor
+          );
+        }
+      });
+    </script>
+
+    <!-- <script>
       document.addEventListener("DOMContentLoaded", function () {
         const API_BASE_URL = "https://dev.gravitywrite.com/api";
         let selectors = [];
@@ -1901,11 +2093,19 @@
 
         // Fetch selectors list
         function fetchSelectorsList() {
-          return fetch(`${API_BASE_URL}/ai/builder/getSecondSelector`)
+          return fetch(`${API_BASE_URL}/ai/builder/getSelector`)
             .then((response) => response.json())
             .then((data) => {
-              console.log("data's value", data);
-              return data.data.selectorslist.map((selector) => selector);
+              console.log("data:", data);
+              if (Array.isArray(data)) {
+                return data.data.selectorslist.map(
+                  (selector) => selector.split(". ")[1]
+                );
+                console.log("map function excuted sucessfully");
+              } else {
+                console.error("Unexpected data format:", data);
+                return [];
+              }
             })
             .catch((error) => {
               console.error("Error fetching selectors:", error);
@@ -1915,15 +2115,16 @@
 
         // Function to update element with content
         function updateElement(selector, content) {
+          console.log("selector was:", selector);
           const element = document.getElementById(selector);
-          if (!element) {
-            console.log(`Element with ID "${selector}" not found.`);
-            return;
+          console.log("element", element);
+          if (element) {
+            // Remove the word "data" from the content
+            const cleanedContent = content.replace(/data:/g, "");
+            console.log("element", element);
+            element.textContent = "";
+            element.textContent = cleanedContent;
           }
-          console.log("Updating element", element);
-          // Remove the word "data" from the content
-          const cleanedContent = content.replace(/data:/g, "");
-          element.textContent = cleanedContent;
         }
 
         // Fetch and stream content
@@ -1961,7 +2162,6 @@
           if (event.data.type === "start") {
             fetchSelectorsList().then((fetchedSelectors) => {
               selectors = fetchedSelectors;
-              console.log("Fetched selectors:", selectors);
               fetchStreamedContent();
             });
           }
@@ -2076,594 +2276,6 @@
 
         window.parent.postMessage(initialStyles, "*");
       };
-    </script>
-
-    <!-- <script>
-      let originalPrompts = {};
-
-      function collectPrompts() {
-        const prompts = {};
-        document.querySelectorAll("[id]").forEach((element) => {
-          prompts[element.id] = element.textContent;
-        });
-        return prompts;
-      }
-
-      function sendPromptsToParent() {
-        const prompts = collectPrompts();
-        originalPrompts = prompts;
-        window.parent.postMessage({ type: "storePrompts", prompts }, "*"); // Replace '*' with specific origin for security
-      }
-
-      document.addEventListener("DOMContentLoaded", sendPromptsToParent);
-
-      function typeEffect(element, text, speed) {
-        let index = 0;
-        element.textContent = "";
-        console.log("content changed");
-        const interval = setInterval(() => {
-          if (index < text.length) {
-            element.textContent += text.charAt(index);
-            index++;
-          } else {
-            clearInterval(interval);
-          }
-        }, speed);
-      }
-
-      async function fetchContentFromAPI(prompts) {
-        try {
-          const gptPrompt = `Write website content for these bussiness name ${
-            prompts.businessName
-          } prompts. If values are null or undefined, create them on your own. Prompts: ${JSON.stringify(
-            prompts.originalPrompts
-          )}`;
-
-          const response = await fetch(
-            "http://localhost:8080/StreamIframeController",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ prompt: gptPrompt }),
-            }
-          );
-
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder("utf-8");
-          let result = "";
-          let content = {};
-
-          while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-            result += decoder.decode(value, { stream: true });
-
-            // Parse the result incrementally
-            try {
-              content = JSON.parse(result);
-              console.log(content);
-              // Update the content with a typing effect
-              for (const key in content) {
-                const element = document.getElementById(key);
-                if (element) {
-                  typeEffect(element, content[key], 100);
-                }
-              }
-            } catch (e) {
-              // If JSON parsing fails, continue accumulating more data
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching content from API:", error);
-        }
-      }
-
-      window.addEventListener("message", function (event) {
-        if (event.data.type === "start") {
-          fetchContentFromAPI(event.data);
-        } else if (event.data.type === "regenerate") {
-          fetchContentFromAPI(event.data);
-        }
-      });
     </script> -->
-
-    <!-- <script>
-      let originalPrompts = {};
-      let isFetching = false; // To prevent multiple API calls
-      let gptcontent = {};
-
-      function collectPrompts() {
-        const prompts = {};
-        document.querySelectorAll("[id]").forEach((element) => {
-          prompts[element.id] = element.textContent;
-        });
-        console.log("Collected Prompts:", prompts);
-        return prompts;
-      }
-
-      function sendPromptsToParent() {
-        const prompts = collectPrompts();
-        originalPrompts = prompts;
-        console.log("prompts are sent from iframe", prompts);
-        window.parent.postMessage({ type: "storePrompts", prompts }, "*"); // Replace '*' with specific origin for security
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        console.log("DOMContentLoaded event triggered");
-        sendPromptsToParent();
-      });
-
-      function typeEffect(elementId, text, speed, callback) {
-        let index = 0;
-        const element = document.getElementById(elementId);
-        const section = element.closest("section");
-
-        element.textContent = ""; // Clear the element's content before starting the typing effect
-
-        const interval = setInterval(() => {
-          if (index < text?.length) {
-            element.textContent += text.charAt(index);
-            index++;
-          } else {
-            clearInterval(interval);
-            if (callback) {
-              callback(); // Call the callback function when typing finishes
-            }
-          }
-        }, speed);
-
-        // Scroll to the section as typing starts
-        if (section) {
-          section.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
-
-      function typeEffectSequentially(elementIds, index = 0) {
-        if (index < elementIds.length) {
-          const elementId = elementIds[index];
-          console.log("Typing elementId:", elementId);
-          const text = gptcontent[elementId];
-          typeEffect(elementId, text, 30, () => {
-            // Callback function to call typeEffectSequentially for the next element
-            typeEffectSequentially(elementIds, index + 1);
-          });
-        } else {
-          // When all elements are processed, notify the parent window
-          // Replace '*' with specific origin for security
-        }
-      }
-
-      async function fetchContentFromAPI(prompts) {
-        if (isFetching) return;
-        isFetching = true; // Set fetching flag
-
-        try {
-          const gptPrompt = `Write website content for these business ${
-            prompts.businessName
-          } prompts and the description ${
-            prompts.description
-          }. If values are null or undefined, create them on your own. Prompts: ${JSON.stringify(
-            prompts.originalPrompts
-          )} I want the same JSON structure so don't change the JSON structure`;
-          console.log("prompt:", gptPrompt);
-          const response = await fetch(
-            "http://localhost:8080/StreamIframeController",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ prompt: gptPrompt }),
-            }
-          );
-
-          window.parent.postMessage({ type: "contentLoaded", isFetching }, "*");
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder("utf-8");
-          let result = "";
-          let content = {};
-
-          while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-            result += decoder.decode(value, { stream: true });
-
-            // Parse the result incrementally
-            try {
-              content = JSON.parse(result);
-              gptcontent = JSON.parse(result);
-              console.log("Fetched Content:", content);
-              // Update the content with a typing effect
-              for (const key in content) {
-                const element = document.getElementById(key);
-                if (element) {
-                  typeEffect(element, content[key], 0);
-                }
-              }
-            } catch (e) {
-              // If JSON parsing fails, continue accumulating more data
-            }
-          }
-
-          // After fetching content, proceed with the event data handling
-          handleEventData(prompts);
-        } catch (error) {
-          console.error("Error fetching content from API:", error);
-        } finally {
-          isFetching = false; // Reset fetching flag
-
-          window.parent.postMessage({ type: "contentLoaded" }, "*");
-          console.log("finally was excuted");
-        }
-      }
-
-      function handleEventData(eventData) {
-        console.log("event data from initial function", eventData);
-        const elementIds = getElementIds();
-        typeEffectSequentially(elementIds);
-        for (const key in eventData) {
-          if (eventData.hasOwnProperty(key)) {
-            typeEffect(key, eventData[key], 0);
-          }
-        }
-      }
-
-      function getElementIds() {
-        const elementIds = [];
-        document.querySelectorAll("[id]").forEach((element) => {
-          elementIds.push(element.id);
-        });
-        console.log("Element IDs:", elementIds);
-        return elementIds;
-      }
-
-      window.addEventListener("message", function (event) {
-        console.log("Received Message:", event.data);
-        if (event.data.type === "start") {
-          if (!originalPrompts || Object.keys(originalPrompts).length === 0) {
-            originalPrompts = collectPrompts();
-            console.log("Original prompts collected", originalPrompts);
-          }
-          fetchContentFromAPI({ ...event.data, originalPrompts });
-        } else if (event.data.type === "regenerate") {
-          fetchContentFromAPI({ ...event.data, originalPrompts });
-        } else {
-          handleEventData(event.data);
-        }
-      });
-
-      // Function to handle scrolling based on scroll amount
-      function handleScrollMessage(scrollAmount) {
-        document.body.style.transition = "transform 10s linear";
-        document.body.style.transform = `translateY(-${
-          document.body.scrollHeight - window.innerHeight
-        }px)`;
-      }
-
-      // Function to stop scrolling
-      function stopScrolling() {
-        document.body.style.transition = "transform 0s linear";
-        document.body.style.transform = "translateY(0)";
-      }
-
-      function reverseScroll() {
-        var targetPosition = document.body.scrollHeight - window.innerHeight;
-        var currentPosition = window.scrollY;
-        var step = 10;
-        var distance = Math.abs(targetPosition - currentPosition);
-        var numSteps = Math.ceil(distance / step);
-        var direction = Math.sign(targetPosition - currentPosition);
-        var currentStep = 0;
-        var scrollIntervalId = setInterval(function () {
-          window.scrollBy(0, direction * step);
-          currentStep++;
-          if (window.scrollY <= 0 || currentStep >= numSteps) {
-            clearInterval(scrollIntervalId);
-          }
-        }, 20);
-      }
-    </script> -->
-
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const API_BASE_URL = "https://dev.gravitywrite.com/api";
-        let selectors = [];
-        let streamedContent = "";
-
-        // Fetch selectors list
-        function fetchSelectorsList() {
-          return fetch(`${API_BASE_URL}/ai/builder/getSelector`)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("data's value", data);
-              return data.data.selectorslist.map(
-                (selector) => selector.split(". ")[1]
-              );
-            })
-            .catch((error) => {
-              console.error("Error fetching selectors:", error);
-              return [];
-            });
-        }
-
-        // Function to update element with content
-        function updateElement(selector, content) {
-          const element = document.getElementById(selector);
-          console.log("element's value", element);
-          if (element) {
-            // Remove the word "data" from the content
-            const cleanedContent = content.replace(/data:/g, "");
-            element.textContent = cleanedContent;
-          }
-        }
-
-        // Fetch and stream content
-        function fetchStreamedContent() {
-          fetch(`${API_BASE_URL}/ai/builder/streamed`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          })
-            .then((response) => response.body.getReader())
-            .then((reader) => {
-              const decoder = new TextDecoder("utf-8");
-              reader.read().then(function processText({ done, value }) {
-                if (done) return;
-                streamedContent += decoder.decode(value, { stream: true });
-                const contentParts = streamedContent.split(";");
-
-                // Update elements with content
-                contentParts.forEach((contentPart, index) => {
-                  if (index < selectors.length) {
-                    updateElement(selectors[index], contentPart.trim());
-                  }
-                });
-
-                // Continue reading the stream
-                return reader.read().then(processText);
-              });
-            })
-            .catch((error) => {
-              console.error("Error fetching streaming content:", error);
-            });
-        }
-
-        // Listen for messages from parent
-        window.addEventListener("message", function (event) {
-          if (event.data.type === "start") {
-            fetchSelectorsList().then((fetchedSelectors) => {
-              selectors = fetchedSelectors;
-              fetchStreamedContent();
-            });
-          }
-        });
-      });
-    </script> -->
-
-    <script>
-      window.addEventListener("message", function (event) {
-        if (event.data.type === "changeFont") {
-          const link = document.createElement("link");
-          link.href = `https://fonts.googleapis.com/css2?family=${event.data.font.replace(
-            / /g,
-            "+"
-          )}&display=swap`;
-          link.rel = "stylesheet";
-          document.head.appendChild(link);
-          document.body.style.fontFamily = event.data.font;
-
-          document.body.setAttribute(
-            "style",
-            `font-family: ${event.data.font} !important;`
-          );
-          // const style = document.createElement("style");
-          // style.innerHTML = `*{font-family: ${event.data.font} !important;}`;
-          // document.head.appendChild(style);
-        } else if (event.data.type == "changeGlobalColors") {
-          document.documentElement.style.setProperty(
-            "--primary-color",
-            event.data.primaryColor
-          );
-          document.documentElement.style.setProperty(
-            "--secondary-color",
-            event.data.secondaryColor
-          );
-        }
-      });
-    </script>
-
-    //
-    <!-- <script>
-//         // function typeEffect(elementId, text, speed) {
-//         //   let index = 0;
-//         //   const element = document.getElementById(elementId);
-//         //   const section = element.closest('section'); // Find the closest ancestor with class 'section'
-
-//         //   const interval = setInterval(() => {
-//         //     if (index < text.length) {
-//         //       element.textContent = text.substring(0, index + 1);
-//         //       index++;
-//         //     } else {
-//         //       clearInterval(interval);
-//         //     }
-//         //   }, speed);
-
-//         //   // Scroll to the section as typing starts
-//         //   if (section) {
-//         //     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//         //   }
-//         // }
-
-//         // Define an array of element IDs
-//         const elementIds = [
-//           "bussinessname",
-//           "heroHeading",
-//           "shortDescription",
-//           "whyChooseUsTitle",
-//           "whyChooseUsReason1",
-//           "whyChooseUsReason2",
-//           "whyChooseUsReason3",
-//           "shortServiceShortIntro",
-//           "serviceIntro",
-//           "serviceDescription",
-//           "aboutUsHeading",
-//           "aboutUsDescription",
-//           "contactUsHeading",
-//           "callUsTextDescription",
-//         ];
-
-//         // Function to execute typeEffect sequentially for each element
-//         function typeEffectSequentially(elementIds, index = 0) {
-//           if (index < elementIds.length) {
-//             const elementId = elementIds[index];
-//             const text = document.getElementById(elementId).textContent;
-//             typeEffect(elementId, text, 50, () => {
-//               // Callback function to call typeEffectSequentially for the next element
-//               typeEffectSequentially(elementIds, index + 1);
-//             });
-//           }
-//         }
-
-//         // Function to simulate typing effect for a single element
-//         function typeEffect(elementId, text, speed, callback) {
-//           let index = 0;
-//           const element = document.getElementById(elementId);
-//           const section = element.closest("section"); // Find the closest ancestor with tag 'section'
-
-//           const interval = setInterval(() => {
-//             if (index < text.length) {
-//               element.textContent = text.substring(0, index + 1);
-//               index++;
-//             } else {
-//               clearInterval(interval);
-//               if (callback) {
-//                 callback(); // Call the callback function when typing finishes
-//               }
-//             }
-//           }, speed);
-
-//           // Scroll to the section as typing starts
-//           if (section) {
-//             section.scrollIntoView({ behavior: "smooth" });
-//           }
-//         }
-
-//         // Start typing sequentially for each element
-
-//         window.addEventListener("message", function (event) {
-//           var data = event.data;
-//           console.log("data from template1", data);
-//           if (data.shortIntro) {
-//             typeEffectSequentially(elementIds);
-//             typeEffect("bussinessname", data.bussinessname, 0);
-//             typeEffect("shortIntro", data.shortIntro, 0);
-//             typeEffect("heroHeading", data.heroHeading, 0);
-//             typeEffect("shortDescription", data.shortDescription, 0);
-//             typeEffect("whyChooseUsTitle", data.whyChooseUsTitle, 0);
-//             typeEffect("whyChooseUsReason1", data.whyChooseUsReason1, 0);
-//             typeEffect("whyChooseUsReason2", data.whyChooseUsReason2, 0);
-//             typeEffect("whyChooseUsReason3", data.whyChooseUsReason3, 0);
-//             typeEffect("shortServiceShortIntro", data.shortServiceShortIntro, 0);
-//             typeEffect("serviceIntro", data.serviceIntro, 0);
-//             typeEffect("serviceDescription", data.serviceDescription, 0);
-//             typeEffect("aboutUsHeading", data.aboutUsHeading, 0);
-//             typeEffect("aboutUsDescription", data.aboutUsDescription, 0);
-//             typeEffect("contactUsHeading", data.contactUsHeading, 0);
-//             typeEffect("callUsTextDescription", data.callUsTextDescription, 0);
-//           } else if (data.type === "scroll") {
-//             // Handle scroll message
-//             handleScrollMessage(data.scrollAmount);
-//           } else if (data.type === "stopScrolling") {
-//             // Handle stop scrolling message
-//             stopScrolling();
-//           } else if (data.type === "reverScroll") {
-//             reverseScroll();
-//           }
-//         });
-
-//         // Function to handle scrolling based on scroll amount
-//         function handleScrollMessage(scrollAmount) {
-//           // Scroll the window by the specified amount
-//           // window.scrollBy({left:0, top:document.body.scrollHeight,behavior:"smooth"});
-//           document.body.style.transition = "transform 10s linear";
-//           document.body.style.transform = `translateY(-${
-//             document.body.scrollHeight - window.innerHeight
-//           }px)`;
-//         }
-
-//         // Function to stop scrolling
-//         function stopScrolling() {
-//           // Stop any ongoing scrolling
-//           // You may implement additional logic if needed
-//           document.body.style.transform = `translateY(${
-//             document.body.getBoundingClientRect().top
-//           }px)`;
-//           document.body.style.transition = "transform 8s linear";
-//           document.body.style.transform = `translateY(0)`;
-//         }
-//         function reverseScroll() {
-//           // Calculate the target scroll position (bottom of the page)
-//           var targetPosition = document.body.scrollHeight - window.innerHeight;
-//           // Calculate the current scroll position
-//           var currentPosition = window.scrollY;
-
-//           // Calculate the distance to scroll in each step
-//           var step = 10; // Adjust the step size for smoother or slower animation
-//           var distance = Math.abs(targetPosition - currentPosition);
-//           var numSteps = Math.ceil(distance / step);
-
-//           // Calculate the direction of scrolling
-//           var direction = Math.sign(targetPosition - currentPosition);
-
-//           // Start the scroll animation
-//           var currentStep = 0;
-//           var scrollIntervalId = setInterval(function () {
-//             // Incrementally scroll in the specified direction
-//             window.scrollBy(0, direction * step);
-//             currentStep++;
-
-//             // Check if reached the top of the page or exceeded the number of steps
-//             if (window.scrollY <= 0 || currentStep >= numSteps) {
-//               // Clear the scroll interval
-//               clearInterval(scrollIntervalId);
-//             }
-//           }, 20);
-//         }
-//     </script>
-//     -->
-
-    //
-    <!-- <script>
-//   window.addEventListener("message", (event) => {
-    
-    
-//     // Update content for each section
-//     for (let i = 1; i <= 6; i++) {
-//       // Get the section element with the corresponding data-section attribute
-//       const sectionElement = document.querySelector(`.section[data-section="${i}"]`);
-//       const sectionData = event.data;
-      
-//       // Update content within the section
-//       const heroHeadingElement = sectionElement.querySelector('.hero-heading');
-//       const descriptionElement = sectionElement.querySelector('.description');
-//       heroHeadingElement.textContent = sectionData[`heroHeading${i}`];
-//       descriptionElement.textContent = sectionData[`description${i}`];
-      
-//       // Optional: Update section title if needed
-//       // const sectionTitleElement = sectionElement.querySelector('h2');
-//       // sectionTitleElement.textContent = receivedData[`section${i}`];
-//     }
-//   });
-// </script> -->
-    //
-    <!-- <script>
-//   window.addEventListener("message", (event) => {
-//     const messageFromParent = document.getElementById("messageFromParent");
-//     messageFromParent.textContent = event.data;
-    
-    
-//   });
-// </script> -->
   </body>
 </html>
